@@ -30,6 +30,8 @@ public class EmployeeService {
         MyUser myUser = new MyUser(employeeDTO.getUsername(),employeeDTO.getPassword(), employeeDTO.getName(), "EMPLOYEE", employeeDTO.getEmail());
 
 
+        String hashPassword = new BCryptPasswordEncoder().encode(myUser.getPassword());
+        myUser.setPassword(hashPassword);
         myUserService.addUser(myUser);
 
 
