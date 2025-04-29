@@ -27,7 +27,9 @@ public class CustomerService {
 
     public void addCustomer( CustomerDTO customerDTO){
         MyUser myUser=new MyUser(customerDTO.getUsername(),customerDTO.getPassword(),customerDTO.getName(),"CUSTOMER",customerDTO.getEmail());
-
+        
+        String hashPassword = new BCryptPasswordEncoder().encode(myUser.getPassword());
+        myUser.setPassword(hashPassword);
         myUserService.addUser(myUser);
 
         Customer customer= new Customer(null, customerDTO.getPhoneNumber(), myUserRepository.findMyUserByUsername(customerDTO.getUsername()),null);
